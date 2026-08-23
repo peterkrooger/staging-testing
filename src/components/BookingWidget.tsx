@@ -1,10 +1,6 @@
 import { useState } from "react";
-import {
-  checkAvailability,
-  PRICING,
-  type Quote,
-  type StayType,
-} from "../data/mockBooking";
+import { checkAvailability, type Quote, type StayType } from "../data/booking";
+import type { Property } from "../data/properties";
 
 type Status = "idle" | "loading" | "quoted" | "error" | "confirmed";
 
@@ -12,7 +8,9 @@ function money(n: number): string {
   return n.toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
 }
 
-export default function BookingWidget() {
+export default function BookingWidget({ property }: { property: Property }) {
+  const { pricing, blockedDates } = property;
+
   const [stayType, setStayType] = useState<StayType>("short");
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
@@ -29,7 +27,7 @@ export default function BookingWidget() {
     setStatus("loading");
     setError("");
     setQuote(null);
-    const result = await checkAvailability(checkIn, checkOut, guests);
+    const result = await checkAvailability(pricing, blockedDates, checkIn, checkOut, guests);
     if (result.ok) {
       setQuote(result.quote);
       setStatus("quoted");
@@ -102,13 +100,13 @@ export default function BookingWidget() {
         </label>
 
         <button className="cta" type="submit" disabled={status === "loading"}>
-          {status === "loading" ? "Checking…" : "Book Direct & Save"}
+          {status === "loading" ? "Checking…" : property.bookCta}
         </button>
       </form>
 
       {stayType === "extended" && (
         <p className="hint">
-          Extended stays of {PRICING.extendedMinNights}+ nights unlock our discounted
+          Extended stays of {pricing.extendedMinNights}+ nights unlock our discounted
           nightly rate — ideal for snowbirds & remote pros.
         </p>
       )}
@@ -134,7 +132,7 @@ export default function BookingWidget() {
       {status === "quoted" && quote && (
         <div className="quote-panel" aria-live="polite">
           {quote.stayType === "extended" && (
-            <span className="badge">Extended-stay rate applied 🎉</span>
+            <span className="badge">Extended-stay rate applied</span>
           )}
           <ul className="quote-lines">
             <li>
@@ -168,9 +166,7 @@ export default function BookingWidget() {
       {status === "confirmed" && (
         <div className="quote-panel confirmed" role="status">
           <h3>You're booked! 🌴</h3>
-          <p>
-            A confirmation email is on its way. We can't wait to host you in Bradenton.
-          </p>
+          <p>A confirmation email is on its way. {property.confirmationLine}</p>
           <button
             type="button"
             className="link"
