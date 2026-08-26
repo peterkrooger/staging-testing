@@ -1,40 +1,53 @@
+import { useState } from "react";
 import BookingWidget from "./components/BookingWidget";
 import FaqAccordion from "./components/FaqAccordion";
-import { HIGHLIGHTS, DRIVE_TIMES } from "./data/mockBooking";
+import { PROPERTIES, getProperty } from "./data/properties";
 import "./App.css";
 
-const GALLERY = [
-  { tag: "Pool & Backyard", emoji: "🏊" },
-  { tag: "Living Areas", emoji: "🛋️" },
-  { tag: "Bedrooms", emoji: "🛏️" },
-  { tag: "Beach Gear", emoji: "🏖️" },
-  { tag: "Mini-Golf", emoji: "⛳" },
-  { tag: "Kitchen", emoji: "🍳" },
-];
-
 export default function App() {
+  const [propertyId, setPropertyId] = useState(PROPERTIES[0].id);
+  const property = getProperty(propertyId);
+
   return (
     <div className="page">
-      <header className="hero">
+      <header
+        className="hero"
+        style={{
+          backgroundImage: `linear-gradient(150deg, rgba(26, 143, 178, 0.68) 0%, rgba(20, 48, 58, 0.8) 100%), url("${property.heroImage}")`,
+        }}
+      >
         <nav className="nav">
-          <span className="logo">Sunshine Bradenton</span>
-          <a className="nav-cta" href="#book">
-            Book Direct
-          </a>
+          <span className="logo">{property.brand}</span>
+          <div className="nav-right">
+            {PROPERTIES.length > 1 && (
+              <select
+                className="prop-switch"
+                aria-label="Choose a property"
+                value={propertyId}
+                onChange={(e) => setPropertyId(e.target.value)}
+              >
+                {PROPERTIES.map((p) => (
+                  <option key={p.id} value={p.id}>
+                    {p.navLabel}
+                  </option>
+                ))}
+              </select>
+            )}
+            <a className="nav-cta" href="#book">
+              Book Direct
+            </a>
+          </div>
         </nav>
         <div className="hero-inner">
-          <h1>Family-Friendly Sunshine Getaway in Bradenton</h1>
-          <p>
-            Private heated pool, brand-new mini-golf course, and full beach gear —
-            just 20 minutes to Anna Maria Island beaches.
-          </p>
+          <h1>{property.heroTitle}</h1>
+          <p>{property.heroSubtitle}</p>
         </div>
-        <BookingWidget />
+        <BookingWidget property={property} />
       </header>
 
       <main>
         <section className="highlights">
-          {HIGHLIGHTS.map((h) => (
+          {property.highlights.map((h) => (
             <div className="highlight-card" key={h.title}>
               <span className="hl-icon">{h.icon}</span>
               <h3>{h.title}</h3>
@@ -46,7 +59,7 @@ export default function App() {
         <section className="section">
           <h2>Take a Look Around</h2>
           <div className="gallery">
-            {GALLERY.map((g) => (
+            {property.gallery.map((g) => (
               <figure className="gallery-tile" key={g.tag}>
                 <span className="tile-emoji">{g.emoji}</span>
                 <figcaption>{g.tag}</figcaption>
@@ -59,7 +72,7 @@ export default function App() {
         <section className="section location">
           <h2>Perfectly Located</h2>
           <div className="drive-cards">
-            {DRIVE_TIMES.map((d) => (
+            {property.driveTimes.map((d) => (
               <div className="drive-card" key={d.place}>
                 <span className="drive-time">{d.time}</span>
                 <span className="drive-place">{d.place}</span>
@@ -70,12 +83,12 @@ export default function App() {
 
         <section className="section">
           <h2>House Rules & FAQ</h2>
-          <FaqAccordion />
+          <FaqAccordion faqs={property.faqs} />
         </section>
       </main>
 
       <footer className="footer">
-        <p>Sunshine Bradenton · Book direct for the best rate · Instant confirmation</p>
+        <p>{property.footerLine}</p>
       </footer>
     </div>
   );

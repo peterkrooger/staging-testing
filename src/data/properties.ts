@@ -56,7 +56,7 @@ const sarasota: Property = {
   id: "sarasota",
   navLabel: "Sarasota, FL",
   brand: "Sunshine Sarasota",
-  heroImage: "/make-this-image-here-is-a-refined-direct-8186.jpg",
+  heroImage: "/for-our-direct-booking-site-hero-section-54b8.png",
   heroTitle: "Family-Friendly Sunshine Getaway in Sarasota",
   heroSubtitle:
     "Private heated pool, brand-new mini-golf course, and full beach gear — just minutes to Sarasota Bay & Gulf beaches.",
