@@ -36,7 +36,7 @@ export interface Faq {
 
 export interface Property {
   id: string;
-  navLabel: string; // short label for the switcher, e.g. "Bradenton, FL"
+  navLabel: string; // short label for the switcher, e.g. "Sarasota, FL"
   brand: string; // logo text
   heroImage: string; // path served from /public
   heroTitle: string;
@@ -48,18 +48,18 @@ export interface Property {
   gallery: GalleryTile[];
   driveTimes: DriveTime[];
   faqs: Faq[];
-  confirmationLine: string; // e.g. "We can't wait to host you in Bradenton."
+  confirmationLine: string; // e.g. "We can't wait to host you in Sarasota."
   footerLine: string;
 }
 
-const bradenton: Property = {
-  id: "bradenton",
-  navLabel: "Bradenton, FL",
-  brand: "Sunshine Bradenton",
+const sarasota: Property = {
+  id: "sarasota",
+  navLabel: "Sarasota, FL",
+  brand: "Sunshine Sarasota",
   heroImage: "/make-this-image-here-is-a-refined-direct-8186.jpg",
-  heroTitle: "Family-Friendly Sunshine Getaway in Bradenton",
+  heroTitle: "Family-Friendly Sunshine Getaway in Sarasota",
   heroSubtitle:
-    "Private heated pool, brand-new mini-golf course, and full beach gear — just 20 minutes to Anna Maria Island beaches.",
+    "Private heated pool, brand-new mini-golf course, and full beach gear — just minutes to Sarasota Bay & Gulf beaches.",
   bookCta: "Book Direct & Save",
   pricing: {
     baseNightlyRate: 289,
@@ -94,7 +94,7 @@ const bradenton: Property = {
     {
       icon: "🏖️",
       title: "Full Beach Gear",
-      body: "Chairs, umbrellas, coolers & toys ready to go — 20 min to the Gulf.",
+      body: "Chairs, umbrellas, coolers & toys ready to go — minutes to the Gulf.",
     },
     {
       icon: "💻",
@@ -111,9 +111,9 @@ const bradenton: Property = {
     { tag: "Kitchen", emoji: "🍳" },
   ],
   driveTimes: [
-    { place: "Anna Maria Island / Gulf Beaches", time: "20 min" },
-    { place: "SRQ Airport", time: "15 min" },
-    { place: "Downtown Bradenton & Riverwalk", time: "10 min" },
+    { place: "Siesta Key & Lido Key / Gulf Beaches", time: "15–20 min" },
+    { place: "SRQ Airport", time: "10 min" },
+    { place: "Downtown Sarasota & Bayfront", time: "10 min" },
     { place: "Groceries, dining & parks", time: "5 min" },
   ],
   faqs: [
@@ -138,8 +138,8 @@ const bradenton: Property = {
       a: "Yes! Stays of 30 nights or more automatically receive our extended-stay nightly rate — great for snowbirds and remote professionals.",
     },
   ],
-  confirmationLine: "We can't wait to host you in Bradenton.",
-  footerLine: "Sunshine Bradenton · Book direct for the best rate · Instant confirmation",
+  confirmationLine: "We can't wait to host you in Sarasota.",
+  footerLine: "Sunshine Sarasota · Book direct for the best rate · Instant confirmation",
 };
 
 const savannah: Property = {
@@ -230,8 +230,8 @@ const savannah: Property = {
   footerLine: "Tybee Coastal Getaway · Book direct for the best rate · Instant confirmation",
 };
 
-export const PROPERTIES: Property[] = [bradenton, savannah];
+export const PROPERTIES: Property[] = [sarasota, savannah];
 
 export function getProperty(id: string): Property {
-  return PROPERTIES.find((p) => p.id === id) ?? bradenton;
+  return PROPERTIES.find((p) => p.id === id) ?? sarasota;
 }
