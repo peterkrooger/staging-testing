@@ -68,7 +68,9 @@ export default function AISupportRequest() {
             className="rounded-2xl bg-white/5 p-8 text-center backdrop-blur-sm"
             aria-live="polite"
           >
-            <h1 className="text-3xl font-semibold">Thanks, {name.trim() || "there"}.</h1>
+            <h1 className="font-display text-3xl font-semibold">
+              Thanks, {name.trim() || "there"}.
+            </h1>
             <p className="mt-3 text-white/70">
               Your AI Support request has been received. Our team will get back to
               you at{" "}
@@ -85,7 +87,7 @@ export default function AISupportRequest() {
         ) : (
           <>
             <header className="mb-8">
-              <h1 className="text-4xl font-semibold leading-tight">
+              <h1 className="font-display text-4xl font-semibold leading-tight">
                 Request AI Support
               </h1>
               <p className="mt-3 text-white/70">
@@ -116,6 +118,7 @@ export default function AISupportRequest() {
                   </p>
                 )}
               </div>
+
               <div>
                 <label htmlFor="email" className="mb-2 block text-sm text-white/80">
                   Email
@@ -138,18 +141,25 @@ export default function AISupportRequest() {
                   </p>
                 )}
               </div>
+
               <div>
-                <label htmlFor="description" className="mb-2 block text-sm text-white/80">
+                <label
+                  htmlFor="description"
+                  className="mb-2 block text-sm text-white/80"
+                >
                   Description
                 </label>
                 <textarea
                   id="description"
+                  rows={5}
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="Please describe the problem you have."
                   aria-invalid={!!errors.description}
-                  aria-describedby={errors.description ? "description-error" : undefined}
-                  className={`${fieldBase} ${
+                  aria-describedby={
+                    errors.description ? "description-error" : undefined
+                  }
+                  className={`${fieldBase} resize-none ${
                     errors.description ? "border-red-400" : "border-white/10"
                   }`}
                 />
@@ -159,9 +169,10 @@ export default function AISupportRequest() {
                   </p>
                 )}
               </div>
+
               <button
                 type="submit"
-                className="mt-6 w-full rounded-lg bg-blue-500 px-5 py-2.5 text-white transition-colors hover:bg-blue-600"
+                className="w-full rounded-lg bg-blue-500 px-5 py-3 font-medium text-white transition-colors hover:bg-blue-600"
               >
                 Submit
               </button>
